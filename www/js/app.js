@@ -5,6 +5,8 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
+var fb = null;
+
 angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
 
 .run(function($ionicPlatform) {
@@ -23,32 +25,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
   });
 })
 
-.controller("ExampleController", function($scope, $rootScope, $ionicPlatform, $cordovaBeacon) {
- 
-    $scope.beacons = {};
-    $scope.added = false;
-    $scope.values = null;
- 
-    $ionicPlatform.ready(function() {
- 
-        $cordovaBeacon.requestWhenInUseAuthorization();
- 
-        $rootScope.$on("$cordovaBeacon:didRangeBeaconsInRegion", function(event, pluginResult) {
-            $scope.added = true;
-            var uniqueBeaconKey;
-            for(var i = 0; i < pluginResult.beacons.length; i++) {
-                uniqueBeaconKey = pluginResult.beacons[i].uuid + ":" + pluginResult.beacons[i].major + ":" + pluginResult.beacons[i].minor;
-                $scope.beacons[uniqueBeaconKey] = pluginResult.beacons[i];
-                $scope.values = pluginResult.beacons[i].uuid;
-                $scope.added = true;
-            }
-            $scope.$apply();
-        });
- 
-        $cordovaBeacon.startRangingBeaconsInRegion($cordovaBeacon.createBeaconRegion("estimote", "B9407F30-F5F8-466E-AFF9-25556B57FE6D"));
- 
-    });
-})
+
 
 .config(function($stateProvider, $urlRouterProvider) {
 
@@ -82,7 +59,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       views: {
         'tab-chats': {
           templateUrl: 'templates/tab-chats.html',
-          controller: 'ChatsCtrl'
+          controller: 'StudentCtrl'
         }
       }
     })
