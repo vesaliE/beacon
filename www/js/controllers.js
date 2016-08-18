@@ -1,28 +1,70 @@
-angular.module('starter.controllers', [])
+angular.module('starter.controllers', ['firebase'])
+
+.controller("StudentCtrl", function($scope, $rootScope, $ionicPlatform, $cordovaBeacon, $localstorage, $firebase) {
+    
+    var beaconList = new Firebase("https://beaconfunction.firebaseio.com/Beacons")
+ 
+    $scope.beacons = {};
+    $scope.added = false;
+    $scope.values = null;
+
+    var time = Firebase.ServerValue.TIMESTAMP;
+ 
+    $ionicPlatform.ready(function() {
+ 
+        $cordovaBeacon.requestWhenInUseAuthorization();
+ 
+        $rootScope.$on("$cordovaBeacon:didRangeBeaconsInRegion", function(event, pluginResult) {
+            $scope.added = true;
+            var uniqueBeaconKey;
+            for(var i = 0; i < pluginResult.beacons.length; i++) {
+                uniqueBeaconKey = pluginResult.beacons[i].uuid + ":" + pluginResult.beacons[i].major + ":" + pluginResult.beacons[i].minor;
+                $scope.beacons[uniqueBeaconKey] = pluginResult.beacons[i];
+                $scope.values = pluginResult.beacons[i].uuid;
+                $scope.added = true;
+                beaconList.child(uniqueBeaconKey).set({
+                    name: $localstorage.get("username"),
+                    beacon: pluginResult.beacons[i].uuid,
+                    date: time
+                })
+            }
+            $scope.$apply();
+            
+        });
+ 
+        $cordovaBeacon.startRangingBeaconsInRegion($cordovaBeacon.createBeaconRegion("estimote", "B9407F30-F5F8-466E-AFF9-25556B57FE6D"));
+ 
+    });
+    
+})
 
 .controller('DashCtrl', function($scope) {})
 
-.controller('ChatsCtrl', function($scope, Chats) {
-  // With the new view caching in Ionic, Controllers are only called
-  // when they are recreated or on app start, instead of every page change.
-  // To listen for when this page is active (for example, to refresh data),
-  // listen for the $ionicView.enter event:
-  //
-  //$scope.$on('$ionicView.enter', function(e) {
-  //});
+.controller('ChatsCtrl', function($scope) {
 
-  $scope.chats = Chats.all();
-  $scope.remove = function(chat) {
-    Chats.remove(chat);
-  };
 })
 
-.controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
-  $scope.chat = Chats.get($stateParams.chatId);
-})
 
-.controller('AccountCtrl', function($scope) {
-  $scope.settings = {
-    enableFriends: true
-  };
+.controller('AccountCtrl', function($scope, $localstorage, $firebase) {
+    var date = Firebase.ServerValue.TIMESTAMP;
+    var temp = new Firebase("https://beaconfunction.firebaseio.com/Users")
+
+    $scope.saveName = function(username) {
+        console.log("saved")
+        $localstorage.set("username", username);
+        $scope.savedname = username;
+        temp.child(username).set({
+            time: date
+        })
+    }
+
+    $scope.savedname = null;
+
+    $scope.checkName = function() {
+        console.log("checking...")
+        var storedName = $localstorage.get("username");
+        if (storedName !== null) {
+            $scope.savedname = storedName;
+        }
+    }
 });
