@@ -1,8 +1,8 @@
 angular.module('starter.controllers', ['firebase'])
 
-.controller("TeacherCtrl", function($scope, $rootScope, $ionicPlatform, $cordovaBeacon, $localstorage, $firebase) {
+.controller("StudentCtrl", function($scope, $rootScope, $ionicPlatform, $cordovaBeacon, $localstorage, $firebase) {
     
-    var beaconList = new Firebase("https://beaconfunction.firebaseio.com")
+    var beaconList = new Firebase("https://beaconfunction.firebaseio.com/Beacons")
  
     $scope.beacons = {};
     $scope.added = false;

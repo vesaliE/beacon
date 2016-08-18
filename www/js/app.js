@@ -49,7 +49,7 @@ angular.module('starter', ['ionic', 'ngCordovaBeacon', 'starter.controllers', 's
     views: {
       'tab-dash': {
         templateUrl: 'templates/tab-dash.html',
-        controller: 'TeacherCtrl'
+        controller: 'StudentCtrl'
       }
     }
   })
