@@ -8,6 +8,8 @@ angular.module('starter.controllers', ['firebase'])
     $scope.added = false;
     $scope.values = null;
 
+    var localName = $localstorage.get("username");
+
     var time = Firebase.ServerValue.TIMESTAMP;
  
     $ionicPlatform.ready(function() {
@@ -22,7 +24,7 @@ angular.module('starter.controllers', ['firebase'])
                 $scope.beacons[uniqueBeaconKey] = pluginResult.beacons[i];
                 $scope.values = pluginResult.beacons[i].uuid;
                 $scope.added = true;
-                beaconList.child(uniqueBeaconKey).set({
+                beaconList.child(uniqueBeaconKey).child(localName).set({
                     name: $localstorage.get("username"),
                     beacon: pluginResult.beacons[i].uuid,
                     date: time
@@ -45,6 +47,14 @@ angular.module('starter.controllers', ['firebase'])
     $scope.list = function() {
         var beaconList = $firebaseObject(fbServer)
         beaconList.$bindTo($scope, "data");
+    }
+
+    $scope.getTimeStudent = function(number) {
+        var date = new Date(number);
+        var number = date.getHours();
+        var hour = date.getHours().toString();
+        var min = date.getMinutes().toString();
+        return date.toLocaleString();
     }
 
 })
