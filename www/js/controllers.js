@@ -6,7 +6,7 @@ angular.module('starter.controllers', ['firebase'])
  
     $scope.beacons = {};
     $scope.added = false;
-    $scope.values = null;
+    $scope.values = "nothing";
 
     var localName = $localstorage.get("username");
 
@@ -24,10 +24,12 @@ angular.module('starter.controllers', ['firebase'])
                 $scope.beacons[uniqueBeaconKey] = pluginResult.beacons[i];
                 $scope.values = pluginResult.beacons[i].uuid;
                 $scope.added = true;
+                var dist = pluginResult.beacons[i].accuracy
                 beaconList.child(uniqueBeaconKey).child(localName).set({
                     name: $localstorage.get("username"),
                     beacon: pluginResult.beacons[i].uuid,
-                    date: time
+                    date: time,
+                    distance: dist
                 })
             }
             $scope.$apply();
