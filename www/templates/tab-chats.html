@@ -1,5 +1,11 @@
-<ion-view view-title="Student">
+<ion-view view-title="Teacher" ng-init="list()">
   <ion-content>
+  		<div ng-repeat="bc in data.Beacons" class="item">
+  			<h1> data </h1>
+  			<p> {{ bc.beacon }} </p>
+  			<p> {{ bd.date }} </p>
+  			<p> {{bc. name }} </p>
+  		</div>
     
   </ion-content>
 </ion-view>

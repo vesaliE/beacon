@@ -40,7 +40,12 @@ angular.module('starter.controllers', ['firebase'])
 
 .controller('DashCtrl', function($scope) {})
 
-.controller('ChatsCtrl', function($scope) {
+.controller('TeacherCtrl', function($scope, $firebase, $firebaseObject) {
+    var fbServer = new Firebase("http://beaconfunction.firebaseio.com/")
+    $scope.list = function() {
+        var beaconList = $firebaseObject(fbServer)
+        beaconList.$bindTo($scope, "data");
+    }
 
 })
 
