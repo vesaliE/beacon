@@ -59,7 +59,7 @@ angular.module('starter', ['ionic', 'ngCordovaBeacon', 'starter.controllers', 's
       views: {
         'tab-chats': {
           templateUrl: 'templates/tab-chats.html',
-          controller: 'ChatsCtrl'
+          controller: 'TeacherCtrl'
         }
       }
     })

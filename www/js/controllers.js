@@ -6,7 +6,9 @@ angular.module('starter.controllers', ['firebase'])
  
     $scope.beacons = {};
     $scope.added = false;
-    $scope.values = null;
+    $scope.values = "nothing";
+
+    var localName = $localstorage.get("username");
 
     var time = Firebase.ServerValue.TIMESTAMP;
  
@@ -22,10 +24,12 @@ angular.module('starter.controllers', ['firebase'])
                 $scope.beacons[uniqueBeaconKey] = pluginResult.beacons[i];
                 $scope.values = pluginResult.beacons[i].uuid;
                 $scope.added = true;
-                beaconList.child(uniqueBeaconKey).set({
+                var dist = pluginResult.beacons[i].accuracy
+                beaconList.child(uniqueBeaconKey).child(localName).set({
                     name: $localstorage.get("username"),
                     beacon: pluginResult.beacons[i].uuid,
-                    date: time
+                    date: time,
+                    distance: dist
                 })
             }
             $scope.$apply();
@@ -40,7 +44,20 @@ angular.module('starter.controllers', ['firebase'])
 
 .controller('DashCtrl', function($scope) {})
 
-.controller('ChatsCtrl', function($scope) {
+.controller('TeacherCtrl', function($scope, $firebase, $firebaseObject) {
+    var fbServer = new Firebase("http://beaconfunction.firebaseio.com/")
+    $scope.list = function() {
+        var beaconList = $firebaseObject(fbServer)
+        beaconList.$bindTo($scope, "data");
+    }
+
+    $scope.getTimeStudent = function(number) {
+        var date = new Date(number);
+        var number = date.getHours();
+        var hour = date.getHours().toString();
+        var min = date.getMinutes().toString();
+        return date.toLocaleString();
+    }
 
 })
 
