@@ -48,8 +48,8 @@ angular.module('starter', ['ionic', 'ngCordovaBeacon', 'starter.controllers', 's
     url: '/dash',
     views: {
       'tab-dash': {
-        templateUrl: 'templates/tab-dash.html',
-        controller: 'StudentCtrl'
+        templateUrl: 'templates/tab-registerClass.html',
+        controller: 'RegisterClassCtrl'
       }
     }
   })
@@ -58,8 +58,8 @@ angular.module('starter', ['ionic', 'ngCordovaBeacon', 'starter.controllers', 's
       url: '/chats',
       views: {
         'tab-chats': {
-          templateUrl: 'templates/tab-chats.html',
-          controller: 'TeacherCtrl'
+          templateUrl: 'templates/tab-signup.html',
+          controller: 'SignupCtrl'
         }
       }
     })

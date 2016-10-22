@@ -1,0 +1,43 @@
+<ion-view view-title="Student">
+  <ion-content ng-controller="RegisterClassCtrl">
+    <div ng-init="getName()">
+        <h2> Hello {{fullName}} </h2>
+    </div>
+    <h1> ENTER YOUR CLASS CODE </h1>
+    <label class="item item-input">
+    <input type="text" ng-model="classCode" placeholder="Class Code">
+    </label>
+
+    <button class="button button-full button-positive" ng-click="register(classCode)">
+        Login
+    </button>
+
+    <div class="list">
+        <div class="item" ng-repeat="(key, value) in beacons">
+            <div class="row">
+                <div class="col truncate">
+                    {{value.uuid}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    major: {{value.major}}
+                </div>
+                <div class="col">
+                    minor: {{value.minor}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    {{value.proximity}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    {{value.accuracy}}
+                </div>
+            </div>
+        </div>
+    </div>
+</ion-content>
+</ion-view>
