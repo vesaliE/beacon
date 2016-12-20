@@ -73,7 +73,7 @@ angular.module('starter.controllers', ['firebase'])
                 uniqueBeaconKey = pluginResult.beacons[i].uuid + ":" + pluginResult.beacons[i].major + ":" + pluginResult.beacons[i].minor;
                 //$scope.beacons[uniqueBeaconKey] = pluginResult.beacons[i];
                 var dist = pluginResult.beacons[i].accuracy
-                fb.child(classCode).child(uniqueBeaconKey).child(studentuid).set({
+                fb.child(classCode).child(studentuid).child(uniqueBeaconKey).set({
                     name: studentuid,
                     beacon: pluginResult.beacons[i].uuid,
                     date: time,
