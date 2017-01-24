@@ -45,14 +45,24 @@ angular.module('starter.controllers', ['firebase'])
 .controller("RegisterClassCtrl", function($scope, $rootScope, $ionicPlatform, $cordovaBeacon, $localstorage, $firebase) {
 
     $scope.fullName = null;
+    $scope.matricNumber = null;
+    $scope.currentTime = null;
+    $scope.ready = "NOT READY";
 
     $scope.getName = function() {
         console.log("running");
-        var fb = new Firebase("https://beaconfunction.firebaseio.com/StudentList")
+        var time = new Date();
+        $scope.currentTime = time.getHours();
+        var fb = new Firebase("https://beaconfunction.firebaseio.com/StudentList");
         var fbAuth = fb.getAuth();
         fb.on("value", function(snapshot) {
             $scope.fullName = snapshot.child(fbAuth.uid).child("fullName").val();
+            $scope.matricNumber = snapshot.child(fbAuth.uid).child("matricNumber").val();
             console.log($scope.fullName);
+            console.log($scope.matricNumber);
+            if ($scope.fullName !== null && $scope.matricNumber !== null) {
+                $scope.ready = "READY";
+            }
         })
     }
 
