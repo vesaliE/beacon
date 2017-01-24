@@ -178,8 +178,45 @@ angular.module('starter.controllers', ['firebase'])
 
 })
 
-.controller('searchCtrl', function($scope) {
+.controller('searchCtrl', function($scope, $firebase, $firebaseArray) {
+    $scope.fullName = null;
+    $scope.matricNumber = null;
+    $scope.searchClass = "Searching...."
 
+    $scope.getName = function() {
+        console.log("running");
+        var fb = new Firebase("https://beaconfunction.firebaseio.com/StudentList");
+        var fbAuth = fb.getAuth();
+        fb.on("value", function(snapshot) {
+            $scope.fullName = snapshot.child(fbAuth.uid).child("fullName").val();
+            $scope.matricNumber = snapshot.child(fbAuth.uid).child("matricNumber").val();
+            console.log("2nd: " + $scope.fullName);
+            console.log("2nd: " + $scope.matricNumber);
+
+        })
+    }
+
+    $scope.search = function() {
+        var currentTime = new Date();
+        var currentHour = currentTime.getHours();
+
+        if (currentHour === 17) {
+            currentHour === "12001400";
+        }
+
+        var fb = new Firebase("https://beaconfunction.firebaseio.com/StudentList");
+
+        var users = $firebaseArray(fb);
+        /*
+        users.$loaded().then(function(){
+            angular.forEach(users, function(user){
+
+            })
+        })
+        */
+
+        console.log("OUT");
+    }
 })
 
 
