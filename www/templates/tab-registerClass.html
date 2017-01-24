@@ -1,4 +1,4 @@
-<ion-view view-title="Student">
+<ion-view view-title="Main">
   <ion-content ng-controller="RegisterClassCtrl">
     <div ng-init="getName()">
         <h2> Hello {{fullName}} !</h2>
@@ -7,7 +7,7 @@
     <p> Please ensure your Matric Number is correct! </p>
     <p> Matric Number: {{ matricNumber }} </p>
 
-    <button class="button button-full button-positive" ng-click="searchClass">
+    <button class="button button-full button-positive" ng-click="searchClass()">
         Search
     </button>
 

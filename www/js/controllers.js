@@ -42,17 +42,14 @@ angular.module('starter.controllers', ['firebase'])
     
 })
 
-.controller("RegisterClassCtrl", function($scope, $rootScope, $ionicPlatform, $cordovaBeacon, $localstorage, $firebase) {
+.controller("RegisterClassCtrl", function($scope, $rootScope, $ionicPlatform, $cordovaBeacon, $localstorage, $firebase, $state) {
 
     $scope.fullName = null;
     $scope.matricNumber = null;
-    $scope.currentTime = null;
     $scope.ready = "NOT READY";
 
     $scope.getName = function() {
         console.log("running");
-        var time = new Date();
-        $scope.currentTime = time.getHours();
         var fb = new Firebase("https://beaconfunction.firebaseio.com/StudentList");
         var fbAuth = fb.getAuth();
         fb.on("value", function(snapshot) {
@@ -64,6 +61,10 @@ angular.module('starter.controllers', ['firebase'])
                 $scope.ready = "READY";
             }
         })
+    }
+
+    $scope.searchClass = function() {
+        $state.go('tab.search');
     }
 
     $scope.register = function(classCode) {
@@ -174,6 +175,10 @@ angular.module('starter.controllers', ['firebase'])
         $scope.fullName = snapshot.child(fbAuth.uid).child("fullName").val();
     })
 }
+
+})
+
+.controller('searchCtrl', function($scope) {
 
 })
 

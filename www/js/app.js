@@ -64,6 +64,16 @@ angular.module('starter', ['ionic', 'ngCordovaBeacon', 'starter.controllers', 's
       }
     })
 
+  .state('tab.search', {
+    url: '/search',
+    views: {
+      'tab-dash': {
+        templateUrl: 'templates/search.html',
+        controller: 'searchCtrl'
+      }
+    }
+  })
+
   .state('tab.account', {
     url: '/account',
     views: {
