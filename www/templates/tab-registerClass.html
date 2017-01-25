@@ -1,8 +1,17 @@
-<ion-view view-title="Student">
+<ion-view view-title="Main">
   <ion-content ng-controller="RegisterClassCtrl">
     <div ng-init="getName()">
-        <h2> Hello {{fullName}} </h2>
+        <h2> Hello {{fullName}} !</h2>
     </div>
+    <p> Status: {{ ready }} </p>
+    <p> Please ensure your Matric Number is correct! </p>
+    <p> Matric Number: {{ matricNumber }} </p>
+
+    <button class="button button-full button-positive" ng-click="searchClass()">
+        Search
+    </button>
+
+    <!-- 
     <h1> ENTER YOUR CLASS CODE </h1>
     <label class="item item-input">
     <input type="text" ng-model="classCode" placeholder="Class Code">
@@ -39,5 +48,8 @@
             </div>
         </div>
     </div>
+    -->
+
+
 </ion-content>
 </ion-view>
